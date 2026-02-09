@@ -4,8 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webflow Animation Library</title>
+    <title>Symphony UI — The Premium Webflow Animation Library</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="A lightweight, CSS-only animation library designed specifically for Webflow. 60 FPS performance, no dependencies, and effortless integration.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
+        :root {
+            /* Colors */
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #121216;
+            --accent-primary: #6366f1;
+            --accent-secondary: #818cf8;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+
+            /* Motion */
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-premium: 1.2s;
+            --duration-fast: 0.4s;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,235 +41,201 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            padding: 40px 20px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 24px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        section {
+            padding: 120px 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 180px;
             text-align: center;
+            position: relative;
         }
 
-        h2 {
-            font-size: 1.5rem;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(60px);
         }
 
-        .intro {
-            text-align: center;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        /* ===== CODE SNIPPET SECTION ===== */
-        .code-section {
-            background: #1a1a1a;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-
-        .code-header {
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #333;
-        }
-
-        .code-header h3 {
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        .code-block-wrapper {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-
-        .code-section.expanded .code-block-wrapper {
-            max-height: 2000px;
-        }
-
-        .code-block {
-            background: #0a0a0a;
-            padding: 20px 24px;
-            overflow-x: auto;
-        }
-
-        .code-block pre {
-            color: #e5e7eb;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 12px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-
-        .code-preview {
-            padding: 16px 24px;
-            background: #0f0f0f;
-            border-top: 1px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .code-preview-text {
-            color: #6b7280;
-            font-size: 13px;
-            font-family: 'Monaco', monospace;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 70%;
-        }
-
-        .code-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .expand-btn,
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #9ca3af;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .hero-badge {
+            display: inline-block;
             padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 99px;
+            color: var(--accent-secondary);
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
         }
 
-        .expand-btn:hover,
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 48px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 32px;
+            background: var(--accent-primary);
             color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease-premium);
+            box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.4);
         }
 
-        .expand-btn svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s ease;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: var(--accent-secondary);
+            box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.5);
         }
 
-        .code-section.expanded .expand-btn svg {
-            transform: rotate(180deg);
+        /* ===== SHOWCASE GRID ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
         }
 
-        .copy-btn {
-            background: #667eea;
-            border-color: #667eea;
-            color: white;
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
         }
 
-        .copy-btn:hover {
-            background: #5a6fd6;
-            border-color: #5a6fd6;
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .copy-btn.copied {
-            background: #10b981;
-            border-color: #10b981;
-        }
-
-        /* ===== ANIMATION GRID ===== */
         .animation-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 24px;
-            margin-top: 20px;
         }
 
         .anim-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-premium);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .anim-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .anim-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             margin-bottom: 8px;
-            color: #1a1a1a;
         }
 
         .anim-card p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
         }
 
-        /* Demo Area */
         .demo-area {
-            height: 100px;
-            background: #f5f5f5;
-            border-radius: 8px;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             overflow: hidden;
+            position: relative;
         }
 
         .demo-box {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
         }
 
         .stagger-container {
             display: flex;
-            gap: 8px;
+            gap: 12px;
         }
 
         .stagger-box {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-primary);
+            border-radius: 8px;
         }
 
-        /* Attribute Display */
-        .attribute {
-            background: #1a1a1a;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 8px;
+        .attribute-stack {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: auto;
         }
 
         .attr-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .attr-row:last-child {
@@ -249,216 +243,260 @@
         }
 
         .attr-label {
-            color: #6b7280;
             font-size: 11px;
+            font-weight: 600;
+            color: #475569;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            min-width: 50px;
         }
 
         .attr-code {
-            flex: 1;
-            font-family: 'Monaco', monospace;
+            font-family: 'JetBrains Mono', 'Monaco', monospace;
             font-size: 13px;
-            padding: 6px 10px;
-            background: #0a0a0a;
-            border-radius: 4px;
-        }
-
-        .attr-code.name {
-            color: #fca5a5;
+            color: #e2e8f0;
+            background: transparent;
         }
 
         .attr-code.value {
-            color: #86efac;
+            color: #818cf8;
         }
 
-        .attr-copy {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #9ca3af;
-            padding: 6px 10px;
-            border-radius: 4px;
+        .copy-icon-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
             cursor: pointer;
-            font-size: 11px;
-            white-space: nowrap;
-            min-width: 85px;
-            text-align: center;
-        }
-
-        .attr-copy:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .attr-copy.copied {
-            background: #10b981;
-            border-color: #10b981;
-            color: white;
-        }
-
-        /* Replay Button */
-        .replay-btn {
-            width: 100%;
-            margin-top: 12px;
-            padding: 10px;
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
+            padding: 4px;
             border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            color: #374151;
             transition: all 0.2s;
+            display: flex;
         }
 
-        .replay-btn:hover {
-            background: #e5e7eb;
+        .copy-icon-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #1a1a1a;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
+        .replay-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--accent-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-            animation: pulse 1.5s ease-in-out infinite;
+        .replay-link:hover {
+            text-decoration: underline;
         }
 
-        .toast.fade-out {
-            animation: pulse 1.5s ease-in-out infinite, fadeOut 0.5s ease forwards;
+        /* ===== ADVANTAGES SECTION ===== */
+        .advantages {
+            background: var(--bg-secondary);
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0) scale(1);
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(0) scale(1.05);
-                box-shadow: 0 0 20px 10px rgba(102, 126, 234, 0.2);
-            }
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
         }
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
+        .advantage-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
         }
 
-        /* Instructions */
-        .instructions {
-            background: #eff6ff;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 40px;
+        .advantage-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
         }
 
-        .instructions h3 {
+        .advantage-card h3 {
             margin-bottom: 12px;
-            color: #1e40af;
         }
 
-        .instructions ol {
-            margin-left: 20px;
+        .advantage-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
-        .instructions li {
-            margin-bottom: 8px;
-            color: #374151;
+        /* ===== CODE DRAWER ===== */
+        .code-drawer {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 100;
         }
 
-        /* ===== ANIMATION CSS (für die Demos) ===== */
-        :root {
-            --premium-ease: cubic-bezier(0.16, 1, 0.3, 1);
-            --premium-duration: 1.2s;
+        .code-btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 99px;
+            padding: 16px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s;
         }
 
+        .code-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .code-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .code-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 24px;
+            position: relative;
+        }
+
+        .modal-body pre {
+            background: #000;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #94a3b8;
+            overflow-x: auto;
+            max-height: 500px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .copy-all-btn {
+            padding: 12px 24px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .creator-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .creator-link:hover {
+            color: var(--accent-primary);
+        }
+
+        /* ===== ANIMATION SYSTEM ===== */
         [data-animate],
         [data-load],
         [data-stagger]>* {
             opacity: 0;
             will-change: translate, rotate, scale, opacity, filter;
-            transition: opacity var(--premium-duration) var(--premium-ease),
-                scale var(--premium-duration) var(--premium-ease),
-                rotate var(--premium-duration) var(--premium-ease),
-                translate var(--premium-duration) var(--premium-ease),
-                filter var(--premium-duration) var(--premium-ease);
+            transition: opacity var(--duration-premium) var(--ease-premium),
+                scale var(--duration-premium) var(--ease-premium),
+                rotate var(--duration-premium) var(--ease-premium),
+                translate var(--duration-premium) var(--ease-premium),
+                filter var(--duration-premium) var(--ease-premium);
         }
 
         [data-animate="up"],
         [data-load="up"],
         [data-stagger="up"]>* {
-            translate: 0 30px;
+            translate: 0 40px;
         }
 
         [data-animate="down"],
         [data-load="down"] {
-            translate: 0 -30px;
+            translate: 0 -40px;
         }
 
         [data-animate="left"] {
-            translate: 30px 0;
+            translate: 40px 0;
         }
 
         [data-animate="right"] {
-            translate: -30px 0;
+            translate: -40px 0;
         }
 
         [data-animate="zoom"],
         [data-load="zoom"],
         [data-stagger="zoom"]>* {
-            scale: 0.96;
-        }
-
-        [data-animate="fade"] {
-            transform: none;
+            scale: 0.94;
         }
 
         [data-animate="blur"] {
-            transform: none;
-            filter: blur(8px);
-            transition: opacity var(--premium-duration) var(--premium-ease), filter var(--premium-duration) var(--premium-ease);
+            filter: blur(12px);
         }
 
         [data-animate="rotate"] {
-            rotate: -5deg;
-            scale: 0.95;
+            rotate: -6deg;
+            scale: 0.94;
         }
 
         [data-animate="3d"] {
-            transform: perspective(1000px) rotateX(15deg) translateY(30px);
-            transform-origin: center top;
-        }
-
-        [data-animate="blur"].is-visible {
-            filter: blur(0);
-        }
-
-        [data-animate="rotate"].is-visible {
-            rotate: 0deg;
-            scale: 1;
-        }
-
-        [data-animate="3d"].is-visible {
-            transform: perspective(1000px) rotateX(0) translateY(0);
+            transform: perspective(1000px) rotateX(20deg) translateY(40px);
         }
 
         .is-visible,
@@ -467,8 +505,11 @@
             translate: 0 0;
             scale: 1;
             rotate: 0deg;
+            filter: blur(0);
+            transform: perspective(1000px) rotateX(0) translateY(0);
         }
 
+        /* Delays */
         [data-delay="100"] {
             transition-delay: 100ms;
         }
@@ -489,532 +530,461 @@
             transition-delay: 500ms;
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-            [data-animate],
-            [data-load],
-            [data-stagger]>* {
-                transition: none !important;
-                opacity: 1 !important;
-                transform: none !important;
+            to {
+                opacity: 1;
             }
         }
 
-        /* Creator Section */
-        .creator-section {
-            margin-top: 60px;
-            padding: 48px 24px;
-            text-align: center;
-            border-top: 1px solid #e5e7eb;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s var(--premium-ease);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .creator-section:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
-        }
-
-        .creator-text {
-            font-size: 0.95rem;
-            color: #6b7280;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-weight: 500;
+            transition: all 0.4s var(--ease-premium);
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .creator-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            color: #1a1a1a;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
         }
 
-        .creator-link:hover {
-            color: #667eea;
-        }
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
 
-        .creator-link svg {
-            width: 24px;
-            height: 24px;
-            transition: transform 0.3s var(--premium-ease);
-        }
+            .hero {
+                padding-top: 120px;
+            }
 
-        .creator-link:hover svg {
-            transform: translate(3px, -3px);
+            .animation-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>🎨 Webflow Animation Library</h1>
-        <p class="intro">Kopiere das Code-Snippet in dein Webflow-Projekt und füge dann einfach die Attribute zu deinen
-            Elementen hinzu.</p>
 
-        <!-- Instructions -->
-        <div class="instructions">
-            <h3>🚀 So verwendest du es in Webflow:</h3>
-            <ol>
-                <li>Kopiere den Code unten</li>
-                <li>In Webflow: <strong>Einstellungen → Benutzerdefinierter Code</strong> (im &lt;head&gt;)</li>
-                <li>Füge den Code ein und speichere</li>
-                <li>Füge zu beliebigen Elementen die Attribute hinzu (z.B. <code>data-animate="up"</code>)</li>
-            </ol>
-        </div>
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" data-load="up">
+            <span class="hero-badge">Designed for Webflow Experts</span>
+            <h1>Animate your UI with<br>Pure Symphony.</h1>
+            <p class="hero-desc">The ultra-lightweight CSS animation library that brings premium motion to your Webflow
+                projects without the GSAP bloat.</p>
+            <div class="hero-actions">
+                <a href="#showcase" class="btn-primary">Explore Animations</a>
+                <p style="margin-top: 20px; font-size: 13px; color: var(--text-secondary);">60 FPS Performance • 0 KB
+                    Dependencies • SEO Friendly</p>
+            </div>
+        </section>
 
-        <!-- Complete Code Snippet -->
-        <div class="code-section" id="codeSection">
-            <div class="code-header">
-                <h3>📋 Kompletter Code für Webflow</h3>
-                <button class="expand-btn" onclick="toggleCode()">
-                    <span>Code anzeigen</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        <!-- Showcase Section -->
+        <section id="showcase">
+            <div class="section-header" data-animate="up">
+                <h2>Premium Motion Library</h2>
+                <p>Simple data-attributes, limitless possibilities. All animations are calculated on the GPU for maximum
+                    smoothness.</p>
+            </div>
+
+            <div class="animation-grid">
+                <!-- Slide Up Card -->
+                <div class="anim-card" data-animate="up">
+                    <div class="demo-area">
+                        <div class="demo-box" data-animate="up">SLIDE-UP</div>
+                    </div>
+                    <h3>Reveal Up</h3>
+                    <p>Sophisticated vertical reveal, perfect for headlines and body text blocks.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-animate</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-animate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"up"</code>
+                            <button class="copy-icon-btn" onclick="copyText('up')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replay(this, 'up')">Replay Preview</a>
+                </div>
+
+                <!-- Zoom Card -->
+                <div class="anim-card" data-animate="up" data-delay="100">
+                    <div class="demo-area">
+                        <div class="demo-box" data-animate="zoom">ZOOM-IN</div>
+                    </div>
+                    <h3>Organic Focus</h3>
+                    <p>Subtle scaling from 94% to full size, ideal for hero images and product cards.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-animate</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-animate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"zoom"</code>
+                            <button class="copy-icon-btn" onclick="copyText('zoom')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replay(this, 'zoom')">Replay Preview</a>
+                </div>
+
+                <!-- Blur Card -->
+                <div class="anim-card" data-animate="up" data-delay="200">
+                    <div class="demo-area">
+                        <div class="demo-box" data-animate="blur">BLUR-REVEAL</div>
+                    </div>
+                    <h3>Ethereal Reveal</h3>
+                    <p>Smooth transition from blur to sharp focus. High-end aesthetic for modern brands.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-animate</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-animate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"blur"</code>
+                            <button class="copy-icon-btn" onclick="copyText('blur')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replay(this, 'blur')">Replay Preview</a>
+                </div>
+
+                <!-- Stagger Card -->
+                <div class="anim-card" data-animate="up">
+                    <div class="demo-area">
+                        <div class="stagger-container" data-stagger="up">
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                        </div>
+                    </div>
+                    <h3>Dynamic Cascade</h3>
+                    <p>Automatic sequence for lists and grids. Set on parent to animate all children.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-stagger</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-stagger')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"up"</code>
+                            <button class="copy-icon-btn" onclick="copyText('up')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replayStagger(this)">Replay Preview</a>
+                </div>
+
+                <!-- 3D Card -->
+                <div class="anim-card" data-animate="up" data-delay="100">
+                    <div class="demo-area">
+                        <div class="demo-box" data-animate="3d">PERSPECTIVE</div>
+                    </div>
+                    <h3>Dimension Flip</h3>
+                    <p>Cinematic 3D rotation around the X-axis. Adds depth to any element.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-animate</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-animate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"3d"</code>
+                            <button class="copy-icon-btn" onclick="copyText('3d')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replay(this, '3d')">Replay Preview</a>
+                </div>
+
+                <!-- Rotate Card -->
+                <div class="anim-card" data-animate="up" data-delay="200">
+                    <div class="demo-area">
+                        <div class="demo-box" data-animate="rotate">ROTATION</div>
+                    </div>
+                    <h3>Playful Curve</h3>
+                    <p>Angular rotation combined with scaling for a bouncy, artistic entrance.</p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attribute</span>
+                            <code class="attr-code">data-animate</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-animate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Value</span>
+                            <code class="attr-code value">"rotate"</code>
+                            <button class="copy-icon-btn" onclick="copyText('rotate')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replay(this, 'rotate')">Replay Preview</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advantages Section -->
+        <section class="advantages">
+            <div class="section-header" data-animate="up">
+                <h2>Why Symphony?</h2>
+                <p>Designed for designers who care about technical excellence and site performance.</p>
+            </div>
+
+            <div class="advantage-grid">
+                <div class="advantage-card" data-animate="up">
+                    <div class="advantage-icon">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                    </div>
+                    <h3>Core Web Vitals</h3>
+                    <p>Built with native CSS properties that run on the compositor thread. Zero layout shifts and
+                        perfect SEO scores.</p>
+                </div>
+
+                <div class="advantage-card" data-animate="up" data-delay="100">
+                    <div class="advantage-icon">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                    <h3>Developer Joy</h3>
+                    <p>Stop fixing GSAP timeline bugs. Simple data-attributes mean your animations are stable and easy
+                        to maintain.</p>
+                </div>
+
+                <div class="advantage-card" data-animate="up" data-delay="200">
+                    <div class="advantage-icon">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 9h5V6h11v3h-4v3h4v3H4V9z" />
+                        </svg>
+                    </div>
+                    <h3>0kb JavaScript</h3>
+                    <p>The entire logic is a small Intersection Observer script that is smaller than one single image
+                        file.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container" data-animate="up">
+                <p style="color: var(--text-secondary); margin-bottom: 8px;">Curated for the Webflow community</p>
+                <p>Designed by <a href="https://petermaier.at" target="_blank" class="creator-link">Julian
+                        Petermaier</a></p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Code Bottom Drawer -->
+    <div class="code-drawer">
+        <button class="code-btn" onclick="toggleModal()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M7 8l-4 4 4 4m10-8l4 4-4 4M13 4l-2 16" />
+            </svg>
+            Get the Code
+        </button>
+    </div>
+
+    <!-- Code Modal -->
+    <div class="code-modal" id="codeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Installation Code</h3>
+                <button class="close-btn" onclick="toggleModal()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <div class="code-block-wrapper">
-                <div class="code-block">
-                    <pre id="codeSnippet">&lt;style&gt;
-  /* Animation CSS für Webflow */
+            <div class="modal-body">
+                <pre id="snippet-full">&lt;style&gt;
   :root {
-    --premium-ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --premium-duration: 1.2s;
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-premium: 1.2s;
   }
   
   [data-animate], [data-load], [data-stagger] &gt; * {
     opacity: 0;
     will-change: translate, rotate, scale, opacity, filter;
-    transition: opacity var(--premium-duration) var(--premium-ease),
-                translate var(--premium-duration) var(--premium-ease),
-                rotate var(--premium-duration) var(--premium-ease),
-                scale var(--premium-duration) var(--premium-ease),
-                filter var(--premium-duration) var(--premium-ease);
+    transition: opacity var(--duration-premium) var(--ease-premium),
+                translate var(--duration-premium) var(--ease-premium),
+                rotate var(--duration-premium) var(--ease-premium),
+                scale var(--duration-premium) var(--ease-premium),
+                filter var(--duration-premium) var(--ease-premium);
   }
   
-  [data-animate="up"], [data-load="up"], [data-stagger="up"] &gt; * { translate: 0 30px; }
-  [data-animate="down"], [data-load="down"] { translate: 0 -30px; }
-  [data-animate="left"] { translate: 30px 0; }
-  [data-animate="right"] { translate: -30px 0; }
-  [data-animate="zoom"], [data-load="zoom"], [data-stagger="zoom"] &gt; * { scale: 0.96; }
+  [data-animate="up"], [data-load="up"], [data-stagger="up"] &gt; * { translate: 0 40px; }
+  [data-animate="down"], [data-load="down"] { translate: 0 -40px; }
+  [data-animate="left"] { translate: 40px 0; }
+  [data-animate="right"] { translate: -40px 0; }
+  [data-animate="zoom"], [data-load="zoom"], [data-stagger="zoom"] &gt; * { scale: 0.94; }
   [data-animate="fade"] { translate: 0 0; }
-  [data-animate="blur"] { filter: blur(8px); transition: opacity var(--premium-duration) var(--premium-ease), filter var(--premium-duration) var(--premium-ease); }
-  [data-animate="rotate"] { rotate: -5deg; scale: 0.95; }
-  [data-animate="3d"] { transform: perspective(1000px) rotateX(15deg) translateY(30px); transform-origin: center top; }
+  [data-animate="blur"] { filter: blur(12px); }
+  [data-animate="rotate"] { rotate: -6deg; scale: 0.94; }
+  [data-animate="3d"] { transform: perspective(1000px) rotateX(20deg) translateY(40px); }
   
   .is-visible, .is-loaded {
-    opacity: 1 !important;
-    translate: 0 0;
-    scale: 1;
-    rotate: 0deg;
+    opacity: 1 !important; translate: 0 0; scale: 1; rotate: 0deg; filter: blur(0);
+    transform: perspective(1000px) rotateX(0) translateY(0) !important;
   }
-  [data-animate="blur"].is-visible { filter: blur(0); }
-  [data-animate="rotate"].is-visible { rotate: 0deg; scale: 1 !important; }
-  [data-animate="3d"].is-visible { transform: perspective(1000px) rotateX(0) translateY(0) !important; }
   
   [data-delay="100"] { transition-delay: 100ms; }
   [data-delay="200"] { transition-delay: 200ms; }
   [data-delay="300"] { transition-delay: 300ms; }
   [data-delay="400"] { transition-delay: 400ms; }
   [data-delay="500"] { transition-delay: 500ms; }
-  
-  @media (prefers-reduced-motion: reduce) {
-    [data-animate], [data-load], [data-stagger] &gt; * {
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
 &lt;/style&gt;
 
 &lt;script&gt;
-  // Animationen initialisieren
-  document.addEventListener('DOMContentLoaded', function() {
-    // Page Load Animationen
-    setTimeout(function() {
-      document.querySelectorAll('[data-load]').forEach(function(el) {
-        el.classList.add('is-loaded');
-      });
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.querySelectorAll('[data-load]').forEach(el => el.classList.add('is-loaded'));
     }, 150);
-    
-    // Scroll Animationen
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var target = entry.target;
-          
-          if (target.hasAttribute('data-stagger')) {
-            var children = Array.from(target.children);
-            children.forEach(function(child, index) {
-              setTimeout(function() {
-                child.classList.add('is-visible');
-              }, index * 120);
-            });
-          } else {
-            target.classList.add('is-visible');
-          }
-          observer.unobserve(target);
-        }
-      });
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                if (target.hasAttribute('data-stagger')) {
+                    Array.from(target.children).forEach((child, i) => {
+                        setTimeout(() => child.classList.add('is-visible'), i * 120);
+                    });
+                } else {
+                    target.classList.add('is-visible');
+                }
+                observer.unobserve(target);
+            }
+        });
     }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
-    
-    document.querySelectorAll('[data-animate], [data-stagger]').forEach(function(el) {
-      observer.observe(el);
-    });
-  });
+    document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => observer.observe(el));
+});
 &lt;/script&gt;</pre>
-                </div>
+                <button class="copy-all-btn" onclick="copySnippet()">Copy Entire Snippet</button>
             </div>
-            <div class="code-preview">
-                <span class="code-preview-text">&lt;style&gt; /* Animation CSS */ [data-animate], [data-load],
-                    [data-stagger] &gt; * { opacity: 0; ... } &lt;script&gt; /* Intersection Observer */ ...</span>
-                <div class="code-actions">
-                    <button class="copy-btn" onclick="copyCodeSnippet()">Alles kopieren</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Animation Demos -->
-        <h2>🎯 Verfügbare Animationen</h2>
-        <p style="color: #666; margin-bottom: 20px;">Klicke auf "Attribut kopieren" und füge es in Webflow zu deinem
-            Element hinzu.</p>
-
-        <div class="animation-grid">
-            <!-- Up -->
-            <div class="anim-card">
-                <h3>⬆️ Slide Up</h3>
-                <p>Element gleitet von unten nach oben</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="up">UP</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"up"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'up')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'up')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Down -->
-            <div class="anim-card">
-                <h3>⬇️ Slide Down</h3>
-                <p>Element gleitet von oben nach unten</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="down">DOWN</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"down"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'down')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'down')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Left -->
-            <div class="anim-card">
-                <h3>⬅️ Slide Left</h3>
-                <p>Element gleitet von rechts nach links</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="left">LEFT</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"left"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'left')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'left')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Right -->
-            <div class="anim-card">
-                <h3>➡️ Slide Right</h3>
-                <p>Element gleitet von links nach rechts</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="right">RIGHT</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"right"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'right')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'right')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Zoom -->
-            <div class="anim-card">
-                <h3>🔍 Zoom In</h3>
-                <p>Element skaliert von klein auf normal</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="zoom">ZOOM</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"zoom"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'zoom')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'zoom')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Fade -->
-            <div class="anim-card">
-                <h3>👁️ Fade In</h3>
-                <p>Nur Opacity-Übergang, ohne Bewegung</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="fade">FADE</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"fade"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'fade')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'fade')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Blur -->
-            <div class="anim-card">
-                <h3>✨ Blur In</h3>
-                <p>Element wird von unscharf zu scharf</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="blur">BLUR</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"blur"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'blur')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'blur')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Rotate -->
-            <div class="anim-card">
-                <h3>🔄 Rotate In</h3>
-                <p>Element rotiert mit Scale-Effekt</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="rotate">ROTATE</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"rotate"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'rotate')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, 'rotate')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- 3D -->
-            <div class="anim-card">
-                <h3>🎭 3D Flip</h3>
-                <p>3D-Perspektive Rotation</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="3d">3D</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-animate</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-animate')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"3d"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, '3d')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replay(this, '3d')">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Page Load -->
-            <div class="anim-card">
-                <h3>⚡ Page Load</h3>
-                <p>Animation beim Seitenladen (nicht beim Scrollen)</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-load="up">LOAD</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-load</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-load')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"up"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'up')">Kopieren</button>
-                    </div>
-                </div>
-                <button class="replay-btn" onclick="replayLoad(this)">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Stagger -->
-            <div class="anim-card">
-                <h3>📚 Stagger</h3>
-                <p>Mehrere Elemente nacheinander animieren</p>
-                <div class="demo-area">
-                    <div class="stagger-container" data-stagger="up">
-                        <div class="stagger-box"></div>
-                        <div class="stagger-box"></div>
-                        <div class="stagger-box"></div>
-                        <div class="stagger-box"></div>
-                    </div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-stagger</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-stagger')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"up"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'up')">Kopieren</button>
-                    </div>
-                </div>
-                <p style="font-size: 12px; color: #999; margin-top: 8px;">Auf Container anwenden, Kinder werden animiert
-                </p>
-                <button class="replay-btn" onclick="replayStagger(this)">▶ Animation wiederholen</button>
-            </div>
-
-            <!-- Delay -->
-            <div class="anim-card">
-                <h3>⏱️ Mit Verzögerung</h3>
-                <p>Verzögerte Animation (kombinierbar)</p>
-                <div class="demo-area">
-                    <div class="demo-box" data-animate="up" data-delay="300">300ms</div>
-                </div>
-                <div class="attribute">
-                    <div class="attr-row">
-                        <span class="attr-label">Name</span>
-                        <code class="attr-code name">data-delay</code>
-                        <button class="attr-copy" onclick="copyAttr(this, 'data-delay')">Kopieren</button>
-                    </div>
-                    <div class="attr-row">
-                        <span class="attr-label">Value</span>
-                        <code class="attr-code value">"300"</code>
-                        <button class="attr-copy" onclick="copyAttr(this, '300')">Kopieren</button>
-                    </div>
-                </div>
-                <p style="font-size: 12px; color: #999; margin-top: 8px;">Werte: 100, 200, 300, 400, 500 (ms)</p>
-                <button class="replay-btn" onclick="replay(this, 'up', 300)">▶ Animation wiederholen</button>
-            </div>
-
-        </div>
-
-        <!-- Creator Section -->
-        <div class="creator-section" data-animate="up">
-            <p class="creator-text">Diese Seite wurde erstellt von</p>
-            <a href="https://petermaier.at" target="_blank" class="creator-link">
-                Julian Petermaier
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-            </a>
         </div>
     </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">Kopiert!</div>
+    <!-- Toast UI -->
+    <div id="toast" class="toast">Copied to Clipboard!</div>
 
     <script>
-        // Initiale Animationen
-        document.addEventListener('DOMContentLoaded', function () {
-            // Page Load Animationen
-            setTimeout(function () {
-                document.querySelectorAll('[data-load]').forEach(function (el) {
-                    el.classList.add('is-loaded');
-                });
+        // Interaction Logic
+        function toggleModal() {
+            document.getElementById('codeModal').classList.toggle('active');
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+            showToast(`Copied: ${text}`);
+        }
+
+        function copySnippet() {
+            const code = document.getElementById('snippet-full').innerText;
+            navigator.clipboard.writeText(code);
+            showToast('Full Snippet Copied!');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Animation Engine (for Landing Page & Demos)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero Load
+            setTimeout(() => {
+                document.querySelectorAll('[data-load]').forEach(el => el.classList.add('is-loaded'));
             }, 150);
 
-            // Demos sofort anzeigen (für die Karten oben)
-            setTimeout(function () {
-                document.querySelectorAll('.demo-box, .stagger-box').forEach(function (el) {
-                    // Falls sie nicht schon durch den Observer animiert werden
-                    if (!el.classList.contains('is-visible')) {
-                        el.classList.add('is-visible');
-                    }
-                });
-            }, 100);
-
-            // Scroll Animationen (Intersection Observer)
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
+            // Intersection Observer
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        var target = entry.target;
-
+                        const target = entry.target;
                         if (target.hasAttribute('data-stagger')) {
-                            var children = Array.from(target.children);
-                            children.forEach(function (child, index) {
-                                setTimeout(function () {
-                                    child.classList.add('is-visible');
-                                }, index * 120);
+                            Array.from(target.children).forEach((child, i) => {
+                                setTimeout(() => child.classList.add('is-visible'), i * 120);
                             });
                         } else {
                             target.classList.add('is-visible');
@@ -1022,130 +992,35 @@
                         observer.unobserve(target);
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -10% 0px'
-            });
+            }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
 
-            document.querySelectorAll('[data-animate], [data-stagger]').forEach(function (el) {
-                observer.observe(el);
-            });
+            document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => observer.observe(el));
         });
 
-        // Toggle Code Expand
-        function toggleCode() {
-            const section = document.getElementById('codeSection');
-            const btn = section.querySelector('.expand-btn span');
-            section.classList.toggle('expanded');
-            btn.textContent = section.classList.contains('expanded') ? 'Code ausblenden' : 'Code anzeigen';
-        }
-
-        // Copy Code Snippet
-        function copyCodeSnippet() {
-            const code = document.getElementById('codeSnippet').textContent;
-            navigator.clipboard.writeText(code).then(function () {
-                showToast('Code kopiert! In Webflow einfügen.');
-                const btn = document.querySelector('.code-preview .copy-btn');
-                const originalText = btn.textContent;
-                btn.textContent = 'Kopiert!';
-                btn.classList.add('copied');
-                setTimeout(function () {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
-
-        // Copy Attribute
-        function copyAttr(btn, text) {
-            navigator.clipboard.writeText(text).then(function () {
-                showToast('Kopiert: ' + text);
-                btn.textContent = 'Kopiert!';
-                btn.classList.add('copied');
-                setTimeout(function () {
-                    btn.textContent = 'Kopieren';
-                    btn.classList.remove('copied');
-                }, 1500);
-            });
-        }
-
-        // Replay Animation
-        function replay(btn, type, delay) {
+        // Replay Preview Demos
+        function replay(btn, type) {
             const card = btn.closest('.anim-card');
-            const demo = card.querySelector('[data-animate]');
-
+            const demo = card.querySelector('.demo-box');
             demo.style.transition = 'none';
             demo.classList.remove('is-visible');
-            if (delay) demo.setAttribute('data-delay', delay);
-
             void demo.offsetWidth;
-
             demo.style.transition = '';
-            setTimeout(function () {
-                demo.classList.add('is-visible');
-            }, 50);
+            setTimeout(() => demo.classList.add('is-visible'), 50);
         }
 
-        // Replay Load Animation
-        function replayLoad(btn) {
-            const card = btn.closest('.anim-card');
-            const demo = card.querySelector('[data-load]');
-
-            demo.style.transition = 'none';
-            demo.classList.remove('is-loaded');
-
-            void demo.offsetWidth;
-
-            demo.style.transition = '';
-            setTimeout(function () {
-                demo.classList.add('is-loaded');
-            }, 150);
-        }
-
-        // Replay Stagger
         function replayStagger(btn) {
             const card = btn.closest('.anim-card');
-            const container = card.querySelector('[data-stagger]');
+            const container = card.querySelector('.stagger-container');
             const items = container.querySelectorAll('.stagger-box');
-
-            items.forEach(function (item) {
-                item.style.transition = 'none';
-                item.classList.remove('is-visible');
+            items.forEach(el => {
+                el.style.transition = 'none';
+                el.classList.remove('is-visible');
             });
-
             void container.offsetWidth;
-
-            items.forEach(function (item, index) {
-                item.style.transition = '';
-                setTimeout(function () {
-                    item.classList.add('is-visible');
-                }, index * 120);
+            items.forEach((el, i) => {
+                el.style.transition = '';
+                setTimeout(() => el.classList.add('is-visible'), i * 120);
             });
-        }
-
-        // Toast
-        function showToast(msg, duration = 2500) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-
-            // Reset classes
-            toast.classList.remove('show', 'fade-out');
-
-            // Force reflow
-            void toast.offsetWidth;
-
-            // Show toast
-            toast.classList.add('show');
-
-            // Handle duration
-            if (duration !== 'infinite') {
-                setTimeout(function () {
-                    toast.classList.add('fade-out');
-                    setTimeout(function () {
-                        toast.classList.remove('show', 'fade-out');
-                    }, 500);
-                }, duration);
-            }
         }
     </script>
 </body>
