@@ -734,6 +734,44 @@
                     <a class="replay-link" onclick="replayStagger(this)">Replay Preview</a>
                 </div>
 
+                <!-- Load + Stagger Card -->
+                <div class="anim-card" data-animate="up">
+                    <div class="demo-area">
+                        <div class="stagger-container" data-load="zoom" data-stagger="zoom">
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                            <div class="stagger-box"></div>
+                        </div>
+                    </div>
+                    <h3>Load Cascade</h3>
+                    <p>Combine load timing with stagger effect. Perfect for hero sections and above-the-fold content.
+                    </p>
+                    <div class="attribute-stack">
+                        <div class="attr-row">
+                            <span class="attr-label">Attributes</span>
+                            <code class="attr-code">data-load + data-stagger</code>
+                            <button class="copy-icon-btn" onclick="copyText('data-load data-stagger')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="attr-row">
+                            <span class="attr-label">Values</span>
+                            <code class="attr-code value">"zoom" + "zoom"</code>
+                            <button class="copy-icon-btn" onclick="copyText('zoom')">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="replay-link" onclick="replayLoadStagger(this)">Replay Preview</a>
+                </div>
+
                 <!-- 3D Card -->
                 <div class="anim-card" data-animate="up" data-delay="100">
                     <div class="demo-area">
@@ -972,9 +1010,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Animation Engine (for Landing Page & Demos)
         document.addEventListener('DOMContentLoaded', () => {
-            // Hero Load
+            // Hero Load (mit Stagger-Support)
             setTimeout(() => {
-                document.querySelectorAll('[data-load]').forEach(el => el.classList.add('is-loaded'));
+                document.querySelectorAll('[data-load]').forEach(el => {
+                    if (el.hasAttribute('data-stagger')) {
+                        // Stagger-Animation beim Load
+                        Array.from(el.children).forEach((child, i) => {
+                            setTimeout(() => child.classList.add('is-loaded'), i * 120);
+                        });
+                    } else {
+                        el.classList.add('is-loaded');
+                    }
+                });
             }, 150);
 
             // Intersection Observer
@@ -1020,6 +1067,21 @@ document.addEventListener('DOMContentLoaded', () => {
             items.forEach((el, i) => {
                 el.style.transition = '';
                 setTimeout(() => el.classList.add('is-visible'), i * 120);
+            });
+        }
+
+        function replayLoadStagger(btn) {
+            const card = btn.closest('.anim-card');
+            const container = card.querySelector('.stagger-container');
+            const items = container.querySelectorAll('.stagger-box');
+            items.forEach(el => {
+                el.style.transition = 'none';
+                el.classList.remove('is-loaded');
+            });
+            void container.offsetWidth;
+            items.forEach((el, i) => {
+                el.style.transition = '';
+                setTimeout(() => el.classList.add('is-loaded'), i * 120);
             });
         }
     </script>
